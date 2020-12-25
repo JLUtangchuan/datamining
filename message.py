@@ -36,7 +36,7 @@ def sendEmail(msg_from, msg_to, auth_id, title, content):
         s = smtplib.SMTP_SSL("smtp.qq.com",465)
         s.login(msg_from, auth_id)
         s.sendmail(msg_from, msg_to, msg.as_string())
-        print("发送成功")
+        print("发送成功", msg_to)
     except s.SMTPException:
         print("发送失败")
     finally:
@@ -56,11 +56,11 @@ def send_mails(infos, scores):
         email_g = g['email']
         weixin_g = g['weixin']
 
-        content_g = f"恭喜您,为您匹配到了一个ta, 你们的得分是{s:.2f}, 超过了{100*1.} %的人, ta的微信号是 {weixin_b}, 邮箱是 {email_b}"
-        content_b = f"恭喜您,为您匹配到了一个ta, 你们的得分是{s:.2f}, 超过了{100*1.} %的人, ta的微信号是 {weixin_g}, 邮箱是 {email_g}"
+        content_g = f"恭喜您,为您匹配到了一个ta, 你们的得分是{s:.2f}, ta的微信号是 {weixin_b}, 邮箱是 {email_b}"
+        content_b = f"恭喜您,为您匹配到了一个ta, 你们的得分是{s:.2f}, ta的微信号是 {weixin_g}, 邮箱是 {email_g}"
         # 这里可以发挥想象, 可以将对方的一些信息也自动发送过去
         
         # print(content_g)
         sendEmail(msg_from, email_g, passwd, subject, content_g)
-        # sendEmail(msg_from, email_b, passwd, subject, content_b)
+        sendEmail(msg_from, email_b, passwd, subject, content_b)
     

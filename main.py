@@ -16,13 +16,13 @@ from match import get_sim, get_match_result
 from utils import load_excel, get_paired_info
 from message import send_mails
 # 全局变量
-excel_file = './test.csv'
+excel_file = './test.xlsx'
 
 
 def main():
     # 主函数
     boys, girls = load_excel(excel_file)
-    model = get_model()
+    model = get_model(model_name='RF')
     sim = get_sim(boys, girls, model)
     print(sim)
     pairs = get_match_result(sim)

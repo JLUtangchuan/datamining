@@ -10,14 +10,15 @@
 import pandas as pd
 
 def load_excel(file_name):
-    with open(file_name, 'r') as f:
-        df = pd.read_csv(f)
-    
+    origin_df = pd.read_excel(file_name)
+    df = origin_df.iloc[:,6:14]
+    df.columns = ['name', 'sex', 'email', 'weixin', 'a1', 'a2', 'a3', 'a4']
     # TODO 加入数据预处理工作：类别转编码等
     
     # 这里就按照男女分开
-    boys = df[df['sex'] == 0]
-    girls = df[df['sex'] == 1]
+    boys = df[df['sex'] == 1]
+    girls = df[df['sex'] == 2]
+    # print('Boys', boys.shape[0], 'Girls', girls.shape[0])
     return boys, girls
 
 def get_paired_info(boys, girls, sim, pairs):
